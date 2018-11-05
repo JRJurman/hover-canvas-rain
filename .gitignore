@@ -1,0 +1,13 @@
+# Library Distributable
+dist
+
+# Transformed Spec Files
+tests/bundled-spec.js
+
+# Logs
+logs
+*.log
+*.log.*
+
+# Dependency directory
+node_modules
