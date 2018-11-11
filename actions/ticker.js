@@ -1,15 +1,16 @@
 module.exports = {
-  init: () => (new Date()),
+  init: () => ({updater: null, animator: null}),
+  initDraw: (ticker, _, actions) => {
+    const updater = setInterval(actions.update, 1000/24)
+    return Object.assign(
+      {}, ticker, {updater}
+    )
+  },
   draw: (ticker, ctx, actions) => {
-    window.requestAnimationFrame(() => {
+    const drawer = window.requestAnimationFrame(() => {
       actions.clear()
       actions.draw(ctx)
     })
-    const updatedTicker = new Date()
-    if ((updatedTicker - ticker) > 60) {
-      actions.update()
-      return updatedTicker
-    }
-    return ticker
+    return Object.assign({}, ticker, drawer)
   },
 }
