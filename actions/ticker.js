@@ -1,16 +1,12 @@
 module.exports = {
-  init: () => ({updater: null, animator: null}),
+  init: () => (null),
   initDraw: (ticker, _, actions) => {
-    const updater = setInterval(actions.update, 1000/24)
-    return Object.assign(
-      {}, ticker, {updater}
-    )
+    setInterval(actions.update, 1000/24)
   },
   draw: (ticker, ctx, actions) => {
-    const drawer = window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
       actions.clear()
       actions.draw(ctx)
     })
-    return Object.assign({}, ticker, drawer)
   },
 }

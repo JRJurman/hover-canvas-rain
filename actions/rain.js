@@ -1,11 +1,11 @@
-module.exports = (initX, initY, initSpeed, height) => ({
-  init: () => ({ x: initX, y: initY, speed: initSpeed }),
-  update: (char) => Object.assign(
-    {}, char, {y: char.y < height ? char.y + char.speed : initY}
-  ),
-  draw: (char, ctx) => {
-    ctx.fillStyle = 'rgb(138, 43, 226)';
-    ctx.fillRect(char.x,char.y,1,10)
-    return char
+module.exports = (drops) => ({
+  init: () => drops,
+  update: (drops) => drops.map(drop => Object.assign({}, drop, {y: drop.y < drop.cap ? drop.y + drop.spd : -10})),
+  draw: (drops, ctx) => {
+    drops.forEach(drop => {
+      ctx.fillStyle = 'rgb(138, 43, 226)'
+      ctx.fillRect(drop.x,drop.y,1,10)
+    })
+    return drops
   }
 })

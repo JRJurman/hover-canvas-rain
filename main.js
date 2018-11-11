@@ -12,14 +12,15 @@ engine.addActions({
 
 // random value helpers for rain objects
 const randX = () => Math.random()*canvas.width
-const randY = () => (Math.random()*-canvas.height) - canvas.height
+const randY = () => (Math.random()*-canvas.height)
 const randSpd = () => (Math.random()*15) + 3
 
 // create rain drop actions, and add them to the engine
-const rainDrops =  [...Array(300).keys()]
-  .map(_ => newRain(randX(), randY(), randSpd(), canvas.height))
-  .forEach((rainActions, index) => {
-    engine.addActions({[`rain${index}`]: rainActions})
-  })
+const rainDrops =  [...Array(1000).keys()]
+  .map(_ => ({x: randX(), y: randY(), spd: randSpd(), cap: canvas.height}))
+
+engine.addActions({
+  rain: require('./actions/rain')(rainDrops)
+})
 
 engine.actions.initDraw()
